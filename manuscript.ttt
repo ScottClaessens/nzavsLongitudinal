@@ -1,0 +1,43 @@
+\begin{lltable}
+
+\footnotesize{
+
+\begin{longtable}{m{4.5cm}m{11cm}m{1.1cm}}\noalign{\getlongtablewidth\global\LTcapwidth=\longtablewidth}
+\caption{\label{tab:itemTable}Self-report items from the New Zealand Attitudes and Values Study.}\\
+\toprule
+Item & \multicolumn{1}{c}{Description / Text} & \multicolumn{1}{c}{Wave}\\
+\midrule
+\endfirsthead
+\caption*{\normalfont{Table \ref{tab:itemTable} continued}}\\
+\toprule
+Item & \multicolumn{1}{c}{Description / Text} & \multicolumn{1}{c}{Wave}\\
+\midrule
+\endhead
+SDO1 & It is OK if some groups have more of a chance in life than others & 10 - 11\\
+SDO2 & Inferior groups should stay in their place & 10 - 11\\
+SDO3 & To get ahead in life, it is sometimes okay to step on other groups & 10 - 11\\
+SDO4 (reversed) & We should have increased social equality & 10 - 11\\
+SDO5 (reversed) & It would be good if groups could be equal & 10 - 11\\
+SDO6 (reversed) & We should do what we can to equalise conditions for different groups & 10 - 11\\
+RWA1 & It is always better to trust the judgment of the proper authorities in government and religion than to listen to the noisy rabble-rousers in our society who are trying to create doubt in people's minds & 10\\
+RWA2 & It would be best for everyone if the proper authorities censored magazines so that people could not get their hands on trashy and disgusting material & 10\\
+RWA3 & Our country will be destroyed some day if we do not smash the perversions eating away at our moral fibre and traditional beliefs & 10\\
+RWA4 (reversed) & People should pay less attention to The Bible and other old traditional forms of religious guidance, and instead develop their own personal standards of what is moral and immoral & 10\\
+RWA5 (reversed) & Atheists and others who have rebelled against established religions are no doubt every bit as good and virtuous as those who attend church regularly & 10\\
+RWA6 (reversed) & Some of the best people in our country are those who are challenging our government, criticizing religion, and ignoring the 'normal way' things are supposed to be done & 10\\
+Income redistribution & Redistributing money and wealth more evenly among a larger percentage of the people in New Zealand through heavy taxes on the rich & 10 - 11\\
+Income attribution & If incomes were more equal, people would be less motivated to work hard & 10 - 11\\
+Support for National Party & Level of support for The National Party & 10 - 11\\
+Age & What is your date of birth? & 10\\
+Gender & What is your gender? (open-ended) & 10\\
+Ethnicity & Which ethnic group do you belong to? (NZ census question) & 10\\
+Education level & NZ Reg (0-10 education ordinal rank) & 10\\
+Socio-economic status & NZSEI13 (NZ Socio-economic index) & 10\\
+Local deprivation & Deprivation score 2013 (for Meshblock) & 10\\
+Religiosity & Do you identify with a religion and/or spiritual group? & 10\\
+\bottomrule
+\end{longtable}
+
+}
+
+\end{lltable}

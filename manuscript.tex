@@ -1,0 +1,699 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  man,floatsintext]{apa6}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{english}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+% Manuscript styling
+\usepackage{upgreek}
+\captionsetup{font=singlespacing,justification=justified}
+
+% Table formatting
+\usepackage{longtable}
+\usepackage{lscape}
+% \usepackage[counterclockwise]{rotating}   % Landscape page setup for large tables
+\usepackage{multirow}		% Table styling
+\usepackage{tabularx}		% Control Column width
+\usepackage[flushleft]{threeparttable}	% Allows for three part tables with a specified notes section
+\usepackage{threeparttablex}            % Lets threeparttable work with longtable
+
+% Create new environments so endfloat can handle them
+% \newenvironment{ltable}
+%   {\begin{landscape}\centering\begin{threeparttable}}
+%   {\end{threeparttable}\end{landscape}}
+\newenvironment{lltable}{\begin{landscape}\centering\begin{ThreePartTable}}{\end{ThreePartTable}\end{landscape}}
+
+% Enables adjusting longtable caption width to table width
+% Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
+\makeatletter
+\newcommand\LastLTentrywidth{1em}
+\newlength\longtablewidth
+\setlength{\longtablewidth}{1in}
+\newcommand{\getlongtablewidth}{\begingroup \ifcsname LT@\roman{LT@tables}\endcsname \global\longtablewidth=0pt \renewcommand{\LT@entry}[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}\@nameuse{LT@\roman{LT@tables}} \fi \endgroup}
+
+% \setlength{\parindent}{0.5in}
+% \setlength{\parskip}{0pt plus 0pt minus 0pt}
+
+% Overwrite redefinition of paragraph and subparagraph by the default LaTeX template
+% See https://github.com/crsh/papaja/issues/292
+\makeatletter
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\parindent}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries\itshape\typesectitle}}
+
+\renewcommand{\subparagraph}[1]{\@startsection{subparagraph}{5}{1em}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-\z@\relax}%
+  {\normalfont\normalsize\itshape\hspace{\parindent}{#1}\textit{\addperi}}{\relax}}
+\makeatother
+
+% \usepackage{etoolbox}
+\makeatletter
+\patchcmd{\HyOrg@maketitle}
+  {\section{\normalfont\normalsize\abstractname}}
+  {\section*{\normalfont\normalsize\abstractname}}
+  {}{\typeout{Failed to patch abstract.}}
+\patchcmd{\HyOrg@maketitle}
+  {\section{\protect\normalfont{\@title}}}
+  {\section*{\protect\normalfont{\@title}}}
+  {}{\typeout{Failed to patch title.}}
+\makeatother
+
+\usepackage{xpatch}
+\makeatletter
+\xapptocmd\appendix
+  {\xapptocmd\section
+    {\addcontentsline{toc}{section}{\appendixname\ifoneappendix\else~\theappendix\fi\\: #1}}
+    {}{\InnerPatchFailed}%
+  }
+{}{\PatchFailed}
+\keywords{cooperation, behavioural economics, political ideology, Social Dominance Orientation, longitudinal}
+\DeclareDelayedFloatFlavor{ThreePartTable}{table}
+\DeclareDelayedFloatFlavor{lltable}{table}
+\DeclareDelayedFloatFlavor*{longtable}{table}
+\makeatletter
+\renewcommand{\efloat@iwrite}[1]{\immediate\expandafter\protected@write\csname efloat@post#1\endcsname{}}
+\makeatother
+\usepackage{lineno}
+
+\linenumbers
+\usepackage{csquotes}
+\raggedbottom
+\usepackage{setspace}
+\AtBeginEnvironment{tabular}{\singlespacing}
+\AtBeginEnvironment{lltable}{\singlespacing}
+\AtBeginEnvironment{tablenotes}{\doublespacing}
+\captionsetup[table]{font={stretch=1.5}}
+\captionsetup[figure]{font={stretch=1.5}}
+\nolinenumbers
+\note{\raggedright * Correspondence concerning this article should be addressed to Scott Claessens, Level 2, Building 302, 23 Symonds Street, Auckland, New Zealand. \text{E-mail:} \href{scott.claessens@gmail.com}{\nolinkurl{scott.claessens@gmail.com}} \par Word count = 4999 words \par Author \text{biographies:} \begin{itemize} \item \textbf{Scott Claessens} is a Research Fellow in the School of Psychology at the University of Auckland. He is interested in the evolution of cooperation, culture, and political ideology. \item \textbf{Chris G Sibley} is a Professor in the School of Psychology at the University of Auckland. He is the Principal Investigator for the New Zealand Attitudes and Values Study. \item \textbf{Ananish Chaudhuri} is a Professor of Experimental Economics in the Department of Economics at the University of Auckland. He has a broad research agenda in behavioural economics, including a significant amount of cross-disciplinary work. \item \textbf{Quentin D Atkinson} is a Professor in the School of Psychology at the University of Auckland and co-Director of the University of Auckland Behavioural Insights Exchange (UoABIX). He is interested in the origins of linguistic diversity, the function of religion, the psychology of climate change, and how evolved cognitive biases shape our social behaviour. \end{itemize}}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Cooperative phenotype predicts political ideology eighteen months later},
+  pdfauthor={Scott Claessens1*, Chris G Sibley1, Ananish Chaudhuri2,3, \& Quentin D Atkinson1,4},
+  pdflang={en-EN},
+  pdfkeywords={cooperation, behavioural economics, political ideology, Social Dominance Orientation, longitudinal},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Cooperative phenotype predicts political ideology eighteen months later}
+\author{Scott Claessens\textsuperscript{1*}, Chris G Sibley\textsuperscript{1}, Ananish Chaudhuri\textsuperscript{2,3}, \& Quentin D Atkinson\textsuperscript{1,4}}
+\date{}
+
+
+\shorttitle{Cooperation SDO longitudinal}
+
+\affiliation{\vspace{0.5cm}\textsuperscript{1} \footnotesize School of Psychology, University of Auckland, Auckland, New Zealand\\\textsuperscript{2} \footnotesize Department of Economics, University of Auckland, Auckland, New Zealand\\\textsuperscript{3} \footnotesize CESifo, Munich, Germany\\\textsuperscript{4} \footnotesize Max Planck Institute for the Science of Human History, Jena, Germany}
+
+\abstract{%
+Cross-sectional research has identified robust correlations between cooperative behaviour in economic games and measures of political ideology, but this research is limited in its ability to draw causal inferences. Here, we conducted a longitudinal cross-lagged panel study of cooperation and political ideology with a New Zealand sample (n = 631). Across two waves separated by eighteen months, we measured self-reported political views and employed a battery of economic games to estimate people's general preferences for cooperation. We found that this ``cooperative phenotype'' predicted future variation in Social Dominance Orientation and support for income redistribution. Income attribution beliefs and political party support were not related to the cooperative phenotype over time, but did negatively covary with cooperation within waves. In contrast, none of these variables predicted future variation in the cooperative phenotype. These results suggest that cooperative predispositions may play a causal role in the expression of political ideology.
+}
+
+
+
+\begin{document}
+\maketitle
+
+\linenumbers
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+People vary in their political voting patterns, policy views, and party support. A central aim of political psychology has been to understand the sources of this ideological variation. In order to study the antecedents of ideology, political psychologists have traditionally used self-report measures that ask people to explicitly state their political opinions, party preferences, and prejudices (Duckitt \& Sibley, 2009). However, some have argued that, due to issues like social desirability and experimenter demand, self-report measures do not fully capture the political mind (Burdein, Lodge, \& Taber, 2006; Gawronski, Galdi, \& Arcuri, 2015). As such, recent work has begun to explore the relationships between political ideology and behaviour in incentivised economic games (Fischer, Atkinson, \& Chaudhuri, 2021). Economic games (\emph{i.e.}, social decision-making tasks that involve real money) are tools that elicit private behavioural preferences, such as a willingness to share, while avoiding the desirability issues that plague self-report methods (Pisor, Gervais, Purzycki, \& Ross, 2020). It costs nothing to state a willingness to share on paper, but economic games require people to put their money where their mouth is (Chaudhuri, 2008).
+
+Over the past decade, research using economic games has revealed robust correlations between political ideology and cooperative behaviour. For example, people higher in Social Dominance Orientation (SDO), an ideological measure of support for hierarchy and dominance, tend to share less money in a variety of social dilemma games that pit self-interest against collective-interest (Haesevoets, Reinders Folmer, Bostyn, \& Van Hiel, 2018; Haesevoets, Reinders Folmer, \& Van Hiel, 2015; Halali, Dorfman, Jun, \& Halevy, 2018). A recent meta-analysis of data from over 3,000 participants found a reliable negative correlation between SDO and measures of cooperative behaviour, with a small-to-medium effect size (Thielmann, Spadaro, \& Balliet, 2020). Extending this work, Claessens, Sibley, Chaudhuri, and Atkinson (2023) found that, after controlling for socio-demographic variables and Right Wing Authoritarianism (RWA; an ideological measure of norm-adherence and group conformity), SDO was negatively correlated with a ``cooperative phenotype'' latent variable. This latent variable is a general behavioural disposition for cooperation that is uncovered via a battery of economic games measuring people's willingness to share resources at a cost to oneself (Peysakhovich, Nowak, \& Rand, 2014).
+
+If political ideology and the cooperative phenotype are correlated, this raises the question of how and if they causally influence one another. At least three causal models are compatible with a cross-sectional correlation between political ideology and the cooperative phenotype.
+
+Prior work has tended to adopt a \emph{cooperation-as-outcome} model. Under this model, biological and environmental factors interact to produce political ideology (Duckitt \& Sibley, 2009) and political ideology then influences how people behave in economic games. In short, ideology causes behaviour. This causal model is often assumed \emph{a priori} to explain cross-sectional correlations between ideology and behaviour. For example, Grünhage and Reuter (2020) write that ``political orientation \emph{predisposes for} a more trusting or cooperative behavior'' (italics added; p.~22).
+
+Alternatively, under the \emph{cooperation-as-antecedent} model, biological and environmental factors interact to produce the behavioural predispositions captured by economic games, and these behavioural predispositions influence the expression of political ideology. In short, behavioural predispositions cause ideology. This causal model is uniquely predicted by the dual evolutionary framework of political ideology (Claessens, Fischer, Chaudhuri, Sibley, \& Atkinson, 2020), which explains ideology as shaped in part by basic social drives that were favoured during human evolution. Human group living evolved via two key shifts (Tomasello, Melis, Tennie, Wyman, \& Herrmann, 2012); a shift towards increased cooperation with others, and a shift towards conformity to and enforcement of group-wide social norms. According to the dual evolutionary framework, variation in general drives for cooperation and group conformity arises from the interaction between heritable individual differences and socio-ecological environments. These general drives for cooperation and group conformity, together with individuals' immediate social context, produce variation in two dimensions of political ideology, often referred to as economic and social ideology (Claessens et al., 2020). This causal pathway --- from behavioural predispositions to politics --- is captured by Van Lange, Bekkers, Chirumbolo, and Leone (2012), who write that ``political preferences and voting are \emph{partially rooted in} interpersonal orientations'' (italics added; p.~469).
+
+Both the cooperation-as-outcome and cooperation-as-antecedent models predict different directions of causation between behaviour and ideology. In contrast, the \emph{common-cause} model predicts that both behaviour and ideology are caused by the same biological and environmental factors, but do not directly influence one another over time. This alternative model is inspired by recent longitudinal evidence showing that personality does not causally precede political ideology, as predicted by the dual process model of ideology (Duckitt \& Sibley, 2009) but instead personality and political ideology covary in parallel, likely due to common causes from biological and environmental factors (Osborne \& Sibley, 2020; Verhulst, Eaves, \& Hatemi, 2012). Similarly, the common-cause model predicts that political ideology and the cooperative phenotype will be correlated, not because they influence one another over time, but because they share the same biological and environmental causes. This model is also consistent with the dual evolutionary framework of political ideology, insofar as heritable individual differences and socio-ecological environments influence both cooperative behaviour and political ideology simultaneously.
+
+Figure \ref{fig:theoreticalModels} provides an overview of these causal models. All three of these models predict a cross-sectional correlation between political ideology and cooperative behaviour. As such, previous cross-sectional work (Claessens et al., 2023; Haesevoets et al., 2018, 2015; Halali et al., 2018) cannot distinguish between these models. Previous longitudinal work has shown that cooperative dispositions predict voting outcomes four weeks and eight months later (Van Lange et al., 2012) but, without a concurrent measure of political ideology, this result is unable to distinguish between the cooperation-as-antecedent and common-cause models.
+
+
+
+\begin{figure}
+\includegraphics[width=\textwidth]{images/theoreticalModels} \caption{At least three theoretical causal models are compatible with the cross-sectional correlation between political ideology and the cooperative phenotype.}\label{fig:theoreticalModels}
+\end{figure}
+
+Longitudinal panel data allows us to provide some additional insights and generate specific hypotheses. If the cooperation-as-outcome model is correct, then political ideology at time \emph{t} should predict the cooperative phenotype at time \emph{t + 1}, but the cooperative phenotype at time \emph{t} should be unrelated to political ideology at time \emph{t + 1}. If the cooperation-as-antecedent model is correct, the opposite should be true: the cooperative phenotype at time \emph{t} should predict political ideology at time \emph{t + 1}, but political ideology at time \emph{t} should be unrelated to the cooperative phenotype at time \emph{t + 1}. Finally, if the common cause model is correct, we expect the cooperative phenotype and political ideology to be correlated within time-points, but the cooperative phenotype (political ideology) at time \emph{t} should be unrelated to political ideology (cooperative phenotype) at time \emph{t + 1}.
+
+Here, we test these hypotheses using a pre-registered cross-lagged longitudinal panel design with two time-points separated by eighteen months. We estimate the directions of causality between the cooperative phenotype, Social Dominance Orientation, views on economic issues, and political party support. Cross-lagged panel models are commonly used in political psychology to study the antecedents and outcomes of political ideology. Previous research using this method has shown that SDO is temporally preceded by a competitive worldview (Sibley \& Duckitt, 2013; Sibley, Wilson, \& Duckitt, 2007) and predicts future prejudice (Asbrock, Sibley, \& Duckitt, 2010), nationalism (Osborne, Milojev, \& Sibley, 2017), economic policy views (Sibley \& Duckitt, 2010), and political party support (Satherley, Sibley, \& Osborne, 2020). Extending this previous research to include behavioural measures, we test whether the cooperative phenotype is an antecedent, outcome, or cross-sectional correlate of Social Dominance Orientation, views on economic issues, and party support over time.
+
+\hypertarget{methods}{%
+\section{Methods}\label{methods}}
+
+\hypertarget{ethical-approval}{%
+\subsection{Ethical approval}\label{ethical-approval}}
+
+Ethical approval was granted by REDACTED (ref: 021666). The study was performed in accordance with all the relevant guidelines and regulations. Informed consent was obtained from all participants prior to the study.
+
+\hypertarget{participants-and-sampling}{%
+\subsection{Participants and sampling}\label{participants-and-sampling}}
+
+Participants were sampled from the New Zealand Attitudes and Values Study (NZAVS), an annual longitudinal self-report study that has been active since 2009. This participant pool is initially contacted by the NZAVS through random draws from the New Zealand electoral roll. NZAVS participants from an initial sample frame (n = 3,345) were contacted in 2019 with an invitation to participate in an additional economic game study (Claessens et al., 2023). 1045 participated in the first wave of economic game data collection in 2019, were successfully paid for the study, and did not time out of their session. In the second wave in 2020, this sample size dropped to 631 (60\% retention rate). We only analysed data from participants that completed both waves of economic game data collection (n = 631; 411 females; mean age = 51 years; age range = 24 - 71 years). This sample size was the largest available to us from our sample frame and was not determined through a formal power analysis.
+
+\hypertarget{materials}{%
+\subsection{Materials}\label{materials}}
+
+\hypertarget{self-report-measures}{%
+\subsubsection{Self-report measures}\label{self-report-measures}}
+
+Main self-report measures were taken from Waves 10 and 11 of the NZAVS. The primary measures of interest for this study were: Social Dominance Orientation (Pratto, Sidanius, Stallworth, \& Malle, 1994); support for income redistribution (``redistributing money and wealth more evenly among a larger percentage of the people in New Zealand through heavy taxes on the rich''); income attribution (``if incomes were more equal, people would be less motivated to work hard''); and support for New Zealand's centre-right National Party. We chose these measures because they all exhibited cross-sectional correlations with the cooperative phenotype in previous research (Claessens et al., 2023). Other time-invariant covariates were taken from Wave 10 of the NZAVS: age, gender, ethnicity, education, local deprivation, socio-economic status, religiosity, and RWA. See Supplementary Table \ref{tab:itemTable} for full list of self-report items.
+
+\hypertarget{battery-of-economic-games}{%
+\subsubsection{Battery of economic games}\label{battery-of-economic-games}}
+
+Across two waves of data collection, participants completed three incentivised one-shot economic games, conducted online in real-time using oTree software (D. L. Chen, Schonger, \& Wickens, 2016). These games measure cooperative behaviour and are largely identical to the cooperation games used in Peysakhovich et al. (2014). We used the strategy method to elicit responses in all possible roles. Participants played for points, which were converted to New Zealand dollars (1 point = \$0.035).
+
+The three cooperation games are as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Dictator Game}. Player A is given 100 points. They must decide how many of these points to transfer to Player B. Player A keeps the remaining points. Player B is passive in the interaction.
+\item
+  \emph{Trust Game}. Players A and B both start with 50 points. First, Player A decides whether or not to transfer all 50 points to Player B, in the knowledge that the transferred amount will be tripled to 150 points. If Player A transfers, Player B now has 200 points. Player B must then decide to transfer 0 - 150 points back to Player A. There are thus two decisions in this game: giving and returning.
+\item
+  \emph{Public Goods Game}. Four players begin with 100 points each. They can contribute 0 - 100 points into a shared group project. All four decisions are made simultaneously, and then the amount in the group project is doubled and distributed evenly between all four players. Each player ends the game with their share from the group project, plus the points they initially refrained from contributing.
+\end{itemize}
+
+In both waves of economic game data collection, participants also completed additional punishment games (Ultimatum Game, Third Party Punishment Game, and Second Party Punishment Game). Moreover, in the first wave, participants completed additional coordination games and, in the second wave, participants completed additional behavioural measures of rule following and social information use (Claessens et al., 2023). Since our focus in this study is on the cooperative phenotype, these behavioural tasks were not included in the analyses.
+
+\hypertarget{procedure}{%
+\subsection{Procedure}\label{procedure}}
+
+The NZAVS collects self-report data both online and via paper surveys posted to participants. In Wave 10 of the study, most of the data were collected between November 2018 and September 2019, and in Wave 11 of the study, most of the data were collected between October 2019 and November 2020 (see Supplementary Figure \ref{fig:timelinePlot} for timeline).
+
+Data collection for the first wave of economic games was conducted between 18\textsuperscript{th} February and 25\textsuperscript{th} July 2019, and data collection for the second wave was conducted between 19\textsuperscript{th} October and 11\textsuperscript{th} November 2020. In both waves, participants were booked into sessions on midweek evenings and completed the session online in real-time. Session sizes varied between 14 and 130 participants. Although participants knew they were completing the study with other NZAVS participants, they did not know specifically who they were interacting with in the session or how many other people there were in the session.
+
+Participants completed a consent form before proceeding to the eight behavioural tasks (three cooperation games plus additional tasks). In the first wave, all eight tasks were completed in a randomised order. In the second wave, the economic games shared with the first wave were completed first in a randomised order, followed by the two new tasks which were presented in a separately randomised order. For each task, participants read the instructions for the task, completed a comprehension question, and then proceeded to make their decisions.
+
+After the tasks, participants entered a waiting lobby in which they waited for all other participants in their session to complete the tasks. If participants took longer than 55 minutes to complete the tasks, they were skipped ahead to the waiting lobby. Timeouts were still paid their show-up fee, but not their bonus. In the first wave, participants took 22 minutes on average to complete all eight tasks (SD = 7 minutes, range = 9 - 47 minutes), and in the second wave, participants took 24 minutes on average (SD = 8 minutes, range = 9 - 49 minutes).
+
+The computer randomly matched participants into groups to determine their bonus payment from the session. Participants were paid a \$20 NZD show-up fee, plus their bonus payment. In the first wave, participants earned a bonus payment of \$25.27 on average (SD = \$2.52). In the second wave, participants earned a bonus payment of \$21.39 on average (SD = \$2.63).
+
+\hypertarget{pre-registration}{%
+\subsection{Pre-registration}\label{pre-registration}}
+
+We pre-registered our hypotheses on the Open Science Framework (\url{https://osf.io/ksw3x/?view_only=597d9d552bc142f4a6d59e4eba97b425}) before running the second wave of economic game data collection. First, we hypothesised that the cooperation games in the second wave would all load onto a single latent variable, replicating our previous work (Claessens et al., 2023). Second, we hypothesised that this ``cooperative phenotype'' would be negatively related to SDO within the second wave, again replicating our previous work. Third, we hypothesised that the cooperative phenotype latent variable would have at least scalar measurement invariance across waves, providing further evidence for its stability over time (Carlsson, Johansson-Stenman, \& Nam, 2014; Peysakhovich et al., 2014). Fourth, we predicted that our longitudinal models would provide support for at least one of the causal models visualised in Figure \ref{fig:theoreticalModels}.
+
+\hypertarget{statistical-analysis}{%
+\subsection{Statistical analysis}\label{statistical-analysis}}
+
+We used confirmatory factor analysis and structural equation modelling to test our pre-registered hypotheses. For measurement invariance analyses, we fitted a confirmatory factor analysis model with correlated item errors across waves to deal with non-independence of observations. For our longitudinal modelling, we used two-wave two-variable cross-lagged panel models. To deal with missing data across waves when analysing self-report items, we used multiple imputation with predictive mean matching (van Buuren \& Groothuis-Oudshoorn, 2011), pooling our estimates across 20 imputed datasets. Visual inspection confirmed the plausibility of imputed values (see Supplementary Figure \ref{fig:impPlot}).
+
+\hypertarget{transparency-and-openness}{%
+\subsection{Transparency and openness}\label{transparency-and-openness}}
+
+Since the NZAVS is an ongoing longitudinal study, ethical concerns prevent us from making the dataset from this study publicly available. However, data are available on request from the lead author. Pre-registration, analysis plan, R code for analyses, and Python code for the economic games are available at \url{https://osf.io/ksw3x/?view_only=597d9d552bc142f4a6d59e4eba97b425}. All analyses were conducted in R version 4.2.1 (R Core Team, 2019) using the \emph{lavaan} package (Rosseel, 2012). Figures were created using \emph{ggraph} (Pedersen, 2020), \emph{cowplot} (Wilke, 2019), and \emph{ggplot2} (Wickham, 2016) packages, multiple imputation was implemented using the \emph{mice} package (van Buuren \& Groothuis-Oudshoorn, 2011), reproducibility of all analyses was ensured by using the \emph{targets} package (Landau, 2021), and the manuscript was generated using the \emph{papaja} package (Aust \& Barth, 2020).
+
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+In the first step of our pre-registered analyses, we focused solely on the second wave of data in order to replicate our previous findings from the first wave (Claessens et al., 2023). First, we fitted a confirmatory factor analysis model with the Trust Game (Give), Trust Game (Return), Dictator Game, and Public Goods Game loading onto a ``cooperative phenotype'' latent variable. Supporting our first pre-registered hypothesis, all factor loadings were significantly positive (\emph{p} \textless{} 0.05) and the model fitted the data well (CFI = 0.99, RMSEA = 0.07, SRMR = 0.04; Figure \ref{fig:impPlot}) according to established fit statistic cutoffs (Hu \& Bentler, 1999; MacCallum, Browne, \& Sugawara, 1996). Second, we fitted a structural equation model with SDO as the sole predictor of the cooperative phenotype latent variable. Supporting our second pre-registered hypothesis, we found that SDO significantly negatively predicted the cooperative phenotype (unstandardised \emph{b} = -0.13, 95\% confidence interval {[}-0.20 -0.06{]}, \emph{p} \textless{} .001; Figure \ref{fig:sem1Plot}). These findings replicate our previous work with the same sample of participants eighteen months later (Claessens et al., 2023).
+
+In the next step of our pre-registered analyses, we tested the measurement invariance of the cooperative phenotype latent variable across the two waves. Longitudinal measurement invariance testing ensures that latent factor structures are stable over time, an important prerequisite to cross-lagged panel modelling. We tested for measurement invariance of the cooperative phenotype factor structure in a series of increasingly restrictive nested models (van de Schoot, Lugtig, \& Hox, 2012). For all model comparisons, we pre-registered the use of changes in fit statistics as thresholds for diagnosing reduced model fit {[}\(\Delta\)Comparative Fit Index (CFI) \textless{} -0.01, \(\Delta\)Root Mean Square Error of Approximation (RMSEA) \textgreater{} 0.015; F. F. Chen (2007){]} rather than \(\chi^2\) differences which are sensitive to large sample sizes. To deal with non-independence of observations, all measurement invariance models had correlated item errors across waves.
+
+First, we fitted a configural invariance model, which freely estimated the two latent variables simultaneously (Table \ref{tab:tableCompareMI}). As expected, this configural invariance model fitted the data well (CFI = 0.99, RMSEA = 0.04) and all loadings were significantly positive. Second, we fitted a metric invariance model, which constrained the item loadings to equality across the two waves. Model fit did not substantially change (\(\Delta\)CFI = -0.006, \(\Delta\)RMSEA = 0.006). Third, we fitted a scalar invariance model, which constrained the item loadings, intercepts, and thresholds to equality across the two waves. Again, model fit did not substantially change (\(\Delta\)CFI = 0.000, \(\Delta\)RMSEA = -0.004). Fourth, and finally, we fitted a strict invariance model, which constrained the item loadings, intercepts, thresholds, and variances to equality across waves. Model fit remained unchanged (\(\Delta\)CFI = 0.000, \(\Delta\)RMSEA = -0.002). Measurement invariance analysis thus supports strict invariance of the cooperative phenotype latent variable over time, suggesting that the cooperative phenotype exhibits sufficient test-retest reliability and is stable over eighteen months within the same individuals.
+
+
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:tableCompareMI}\emph{Measurement invariance analysis of the cooperative phenotype latent variable supports strict measurement invariance.} CFI = Comparative Fit Index; RMSEA = Root Mean Square Error of Approximation; SRMR = Standardised Root Mean Square Residual.}
+
+\begin{tabular}{lllllllll}
+\toprule
+Model & \multicolumn{1}{c}{$\chi^2$} & \multicolumn{1}{c}{df} & \multicolumn{1}{c}{CFI} & \multicolumn{1}{c}{RMSEA} & \multicolumn{1}{c}{SRMR} & \multicolumn{1}{c}{$\Delta$CFI} & \multicolumn{1}{c}{$\Delta$RMSEA} & \multicolumn{1}{c}{$\Delta$SRMR}\\
+\midrule
+Configural & 26.70 & 15 & 0.991 & 0.035 & 0.038 & - & - & -\\
+Metric & 37.61 & 18 & 0.985 & 0.042 & 0.044 & -0.006 & 0.006 & 0.005\\
+Scalar & 41.90 & 22 & 0.985 & 0.038 & 0.044 & 0.000 & -0.004 & 0.000\\
+Strict & 44.87 & 25 & 0.985 & 0.036 & 0.044 & 0.000 & -0.002 & 0.001\\
+\bottomrule
+\end{tabular}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
+
+Having established measurement invariance for the cooperative phenotype latent variable across waves, we then proceeded to fit our pre-registered two-variable two-wave cross-lagged panel models. For these models, we continued to constrain item loadings, intercepts, thresholds, and variances for the cooperative phenotype factor across waves, and also continued to correlate item errors across waves. Additionally, we included auto-regressive paths, cross-lagged paths, and within-wave covariances to form the structural component of the cross-lagged panel model.
+
+We first fitted our primary cross-lagged panel model, modelling the relationship between SDO and the cooperative phenotype over time (Figure \ref{fig:clpmPlotSDO}a). We found significantly positive auto-regressive effects: SDO in the first wave predicted SDO in the second wave (standardised \(\beta\) = 0.83, unstandardised \emph{b} = 0.84, 95\% CI {[}0.78 0.89{]}, \emph{p} \textless{} .001) and the cooperative phenotype in the first wave predicted the cooperative phenotype in the second wave (\(\beta\) = 0.65, \emph{b} = 0.73, 95\% CI {[}0.60 0.86{]}, \emph{p} \textless{} .001). Additionally, we found that the cooperative phenotype in the first wave negatively predicted SDO in the second wave (\(\beta\) = -0.09, \emph{b} = -0.13, 95\% CI {[}-0.24 -0.03{]}, \emph{p} = .009), but SDO did not predict later cooperation (\(\beta\) = 0.00, \emph{b} = 0.00, 95\% CI {[}-0.03 0.03{]}, \emph{p} = .958). These cross-lagged paths were significantly different from one another (difference in unstandardised estimates = 0.13, 95\% CI {[}0.03 0.24{]}, \emph{p} = .013).
+
+To assess the robustness of the cross-lagged effect from the cooperative phenotype to later political ideology, we ran additional cross-lagged panel models statistically controlling for a wide range of time-invariant covariates: age, gender, ethnicity, education level, socio-economic status, local deprivation, religiosity, and RWA (Figures \ref{fig:clpmPlotSDO}b and \ref{fig:clpmPlotSDO}c). The cross-lagged path from the cooperative phenotype to later SDO remained significantly negative when controlling for most demographics, but was attenuated when controlling for gender and ethnicity. Given these results, we ran exploratory multi-group cross-lagged panel models with separate groups for (1) male and female participants, and (2) participants of European ancestry and participants not of European ancestry (due to small sample sizes in individual Asian, Māori, and Pacific groups). These follow-up models revealed that the cross-lagged path from the cooperative phenotype to later SDO was significantly negative for males (\(\beta\) = -0.12, \emph{b} = -0.18, 95\% CI {[}-0.35 -0.01{]}, \emph{p} = .041) but not for females (\(\beta\) = -0.07, \emph{b} = -0.10, 95\% CI {[}-0.22 0.03{]}, \emph{p} = .129), though these were both in the same direction. Similarly, the cross-lagged path from the cooperative phenotype to later SDO was significantly negative for participants of European ancestry (\(\beta\) = -0.08, \emph{b} = -0.12, 95\% CI {[}-0.24 -0.01{]}, \emph{p} = .036) but not for other participants (\(\beta\) = -0.15, \emph{b} = -0.20, 95\% CI {[}-0.40 0.00{]}, \emph{p} = .051), though these were both in the same direction.
+
+
+
+\begin{figure}
+\centering
+\includegraphics{manuscript_files/figure-latex/clpmPlotSDO-1.pdf}
+\caption{\label{fig:clpmPlotSDO}\emph{The cooperative phenotype negatively predicts later SDO.} (a) Cross-lagged panel model with the cooperative phenotype and SDO. Note that measurement models for the cooperative phenotype latent variables are omitted from this figure. Numbers are standardised coefficients, *\emph{p} \textless{} 0.05. (b, c) Forest plots visualising the change in cross-lagged paths when controlling for time-invariant covariates, individually and in a full model. Points are unstandardised estimates, lines are 95\% confidence intervals.}
+\end{figure}
+
+To assess the generalisability of the cross-lagged effect from the cooperative phenotype to later political ideology, we swapped out SDO in our cross-lagged panel model for additional measures of views on economic issues and political party support. As these additional measures were single Likert scale items, we treated them as ordered variables in our modelling. When we included support for income redistribution in the model instead of SDO, we found the same pattern of results: the cooperative phenotype positively predicted future support for income redistribution, but support for income redistribution did not predict future cooperation (Supplementary Figure \ref{fig:clpmPlotIncRed}a). This pattern of results held when controlling for all demographics controls except gender, ethnicity, and religiosity (Supplementary Figures \ref{fig:clpmPlotIncRed}b and \ref{fig:clpmPlotIncRed}c). However, when we included income attribution views and support for New Zealand's centre-right National Party in the model instead of SDO, we found no cross-lagged effects over time (Supplementary Figures \ref{fig:clpmPlotIncAtt} and \ref{fig:clpmPlotPolNat}). Nevertheless, the within-wave correlations in these models were in the expected direction, with the cooperative phenotype negatively covarying cross-sectionally with both income attribution views and support for the National Party.
+
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
+
+In a cross-lagged longitudinal analysis of cooperative behaviour and self-reported political attitudes, we have shown that the cooperative phenotype predicts SDO a year and a half later, but SDO does not predict future variation in the cooperative phenotype. This result is in line with the cooperation-as-antecedent model (Figure \ref{fig:theoreticalModels}) which posits that general behavioural predispositions like the cooperative phenotype causally influence political ideology, but not vice versa. This causal model explains previously reported negative cross-sectional correlations between cooperation and SDO (Claessens et al., 2023; Haesevoets et al., 2018, 2015; Halali et al., 2018; Thielmann et al., 2020) as arising from a causal relationship from behavioural preferences to later political ideology.
+
+Additionally, the cross-lagged path from cooperation to future SDO was robust to a wide range of time-invariant socio-demographic covariates, including variables known to covary with SDO, such as education, socio-economic status, and RWA (Pratto et al., 1994; Sidanius, Levin, Liu, \& Pratto, 2000; Sidanius, Pratto, \& Bobo, 1996). However, this cross-lagged path was attenuated when controlling for gender and ethnicity. In particular, exploratory analyses revealed that the cross-lagged effect held only for male participants of European ancestry. This is similar to the finding that upper body strength is related to support for inequality in males, but not females (Petersen \& Laustsen, 2019). A possible evolutionary explanation for this effect of gender might be that humans have large sexual dimorphism in strength and formidability, and so reductions in the cooperative phenotype are more likely to result in dominative and competitive tactics for resource distribution specifically among males. But this does not explain the effect of ethnicity. Perhaps a simpler explanation is that SDO is generally higher among males and people from dominant ethnic groups (Pratto et al., 1994; Sidanius et al., 2000; Sidanius, Pratto, \& Bobo, 1994). Among these participants, there is potentially more room for a change in SDO over time, whereas female participants from minority ethnic groups may have already hit the floor of the scale and therefore have less room for change. In line with this explanation, when we look at the differences in SDO between the two waves, we find that these difference scores have a higher variance for males of European ancestry (variance = 0.39) compared to other participants (variance = 0.24; Levene's test, \emph{F}(1,564) = 13.54, \emph{p} \textless{} .001) suggesting that SDO had more room for change over time among males of European ancestry. Future research should disentangle the roles of gender and ethnicity in the causal relationship between behavioural predispositions and political ideology.
+
+When we generalised our cross-lagged analysis to other measures of economic ideology, we found more mixed results. As expected, the cooperative phenotype positively predicted future support for income redistribution, but cooperation was not longitudinally related to support for the centre-right National Party, nor was it longitudinally related to income attribution beliefs. One potential explanation for these null findings is that party affiliation and income attribution beliefs are generally less amenable to change over time: people rarely shift their political party affiliation (Pew Research Center, 2020) and income attribution beliefs have been characterised as a stable individual difference (Osborne \& Weiner, 2015; but see Piff et al., 2020 for evidence that active interventions can shift income attribution beliefs over a five-month period). Nevertheless, support for the National Party and income attribution beliefs were negatively related to the cooperative phenotype \emph{within} waves, which supports the common-cause model (Figure \ref{fig:theoreticalModels}). This model posits that the cooperative phenotype and political ideology covary due to shared causes from common biological and environmental influences.
+
+Taken together, then, our results are broadly consistent with the dual evolutionary foundations framework for political ideology. All our analyses supported either the cooperation-as-antecedent or common-cause models, and none of the analyses supported the cooperation-as-outcome model, a model which is inconsistent with the dual evolutionary foundations framework (Figure \ref{fig:theoreticalModels}). Moreover, our measurement invariance analysis revealed that the cooperative phenotype latent variable had adequate test-retest reliability over eighteen months, supporting another central claim from the dual evolutionary foundations framework that the general social drives that partly shape political ideology should be relatively stable over time. This finding expands on previous correlational evidence showing that cooperative behaviour in individual economic games positively covaries when measured over four months (Peysakhovich et al., 2014; Reigstad, Strømland, \& Tinghög, 2017), one year (Lönnqvist, Verkasalo, Walkowitz, \& Wichardt, 2015), and even six years (Carlsson et al., 2014).
+
+One important limitation of this study is our use of two-wave cross-lagged panel models to determine longitudinal effects. Cross-lagged panel models have been criticised for not correctly partitioning within-person change from stable between-person differences (Hamaker, Kuiper, \& Grasman, 2015). As an alternative to the cross-lagged panel model, Hamaker et al. (2015) proposed the random-intercept cross-lagged panel model, which estimates a random intercept to capture stable individual differences over time that are not adequately captured by auto-regressive parameters. This alternative model can substantially change the parameter estimates of standard cross-lagged panel models (\emph{e.g.} Osborne \& Sibley, 2020). Unfortunately, random-intercept cross-lagged panel models require at least three waves of data to be identified (Hamaker et al., 2015), and so we were limited by our two waves of data in this study. Moving forward, it will be vital to extend this study to include a third wave (and, if possible, additional waves) of behavioural and self-report data collection to determine if our results hold when accounting for stable between-person differences.
+
+Future research should expand our multi-wave behavioural and self-report approach to include additional measures. In particular, to provide a complete picture for the dual evolutionary foundations framework, future research should test whether group conformist predispositions predict future variation in RWA and social policy views. Evidence already suggests that RWA covaries cross-sectionally with conformist behaviour in the rule following task and social learning tasks (Claessens et al., 2023; Fischer et al., 2021). Extending this research longitudinally will allow researchers to make causal, rather than just correlational, claims in support of the dual evolutionary framework of political ideology.
+
+\newpage
+\nolinenumbers
+
+\hypertarget{acknowledgements}{%
+\section{Acknowledgements}\label{acknowledgements}}
+
+This work was supported by a Royal Society of New Zealand Marsden Grant (REDACTED). The New Zealand Attitudes and Values Study is funded by a grant from the Templeton Religion Trust (REDACTED).
+
+\hypertarget{author-contributions}{%
+\section{Author Contributions}\label{author-contributions}}
+
+All authors conceived of and designed the study. REDACTED collected behavioural data and conducted all statistical analyses. REDACTED managed survey data collection. REDACTED wrote the paper with input from REDACTED.
+
+\hypertarget{competing-interests}{%
+\section{Competing Interests}\label{competing-interests}}
+
+The authors declare no competing interests.
+
+\newpage
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+\begingroup
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-Asbrock2010}{}}%
+Asbrock, F., Sibley, C. G., \& Duckitt, J. (2010). Right-wing authoritarianism and social dominance orientation and the dimensions of generalized prejudice: A longitudinal test. \emph{European Journal of Personality}, \emph{24}(4), 324--340. \url{https://doi.org/10.1002/per.746}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-papaja}{}}%
+Aust, F., \& Barth, M. (2020). \emph{{papaja}: {Create} {APA} manuscripts with {R Markdown}}. Retrieved from \url{https://github.com/crsh/papaja}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Burdein2006}{}}%
+Burdein, I., Lodge, M., \& Taber, C. (2006). Experiments on the automaticity of political beliefs and attitudes. \emph{Political Psychology}, \emph{27}(3), 359--371. \url{https://doi.org/10.1111/j.1467-9221.2006.00504.x}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Carlsson2014}{}}%
+Carlsson, F., Johansson-Stenman, O., \& Nam, P. K. (2014). Social preferences are stable over long periods of time. \emph{Journal of Public Economics}, \emph{117}, 104--114. https://doi.org/\url{https://doi.org/10.1016/j.jpubeco.2014.05.009}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Chaudhuri2008}{}}%
+Chaudhuri, A. (2008). \emph{Experiments in economics: Playing fair with money}. London; New York: Routledge.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Chen2016}{}}%
+Chen, D. L., Schonger, M., \& Wickens, C. (2016). {oTree}-an open-source platform for laboratory, online, and field experiments. \emph{Journal of Behavioral and Experimental Finance}, \emph{9}, 88--97. \url{https://doi.org/10.1016/j.jbef.2015.12.001}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Chen2007}{}}%
+Chen, F. F. (2007). Sensitivity of goodness of fit indexes to lack of measurement invariance. \emph{Structural Equation Modeling: A Multidisciplinary Journal}, \emph{14}(3), 464--504. \url{https://doi.org/10.1080/10705510701301834}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Claessens2020}{}}%
+Claessens, S., Fischer, K., Chaudhuri, A., Sibley, C. G., \& Atkinson, Q. D. (2020). The dual evolutionary foundations of political ideology. \emph{Nature Human Behaviour}, \emph{4}, 336--345. \url{https://doi.org/10.1038/s41562-020-0850-9}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Claessens2023}{}}%
+Claessens, S., Sibley, C. G., Chaudhuri, A., \& Atkinson, Q. D. (2023). Cooperative and conformist behavioural preferences predict the dual dimensions of political ideology. \emph{Scientific Reports}, \emph{13}(1), 4886.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Duckitt2009}{}}%
+Duckitt, J., \& Sibley, C. G. (2009). A dual-process motivational model of ideology, politics, and prejudice. \emph{Psychological Inquiry}, \emph{20}(2-3), 98--109. \url{https://doi.org/10.1080/10478400903028540}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Fischer2021}{}}%
+Fischer, K., Atkinson, Q. D., \& Chaudhuri, A. (2021). Experiments in political psychology. In A. Chaudhuri (Ed.), \emph{A research agenda for experimental economics}. Cheltenham: Edward Elgar.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Gawronski2015}{}}%
+Gawronski, B., Galdi, S., \& Arcuri, L. (2015). What can political psychology learn from implicit measures? Empirical evidence and new directions. \emph{Political Psychology}, \emph{36}(1), 1--17. \url{https://doi.org/10.1111/pops.12094}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Grunhage2020}{}}%
+Grünhage, T., \& Reuter, M. (2020). Political orientation is associated with behavior in public-goods- and trust-games. \emph{Political Behavior}, (0123456789). \url{https://doi.org/10.1007/s11109-020-09606-5}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Haesevoets2018}{}}%
+Haesevoets, T., Reinders Folmer, C., Bostyn, D. H., \& Van Hiel, A. (2018). Behavioural consistency within the prisoner's dilemma game: The role of personality and situation. \emph{European Journal of Personality}, \emph{32}(4), 405--426. \url{https://doi.org/10.1002/per.2158}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Haesevoets2015}{}}%
+Haesevoets, T., Reinders Folmer, C., \& Van Hiel, A. (2015). Cooperation in mixed-motive games: The role of individual differences in selfish and social orientation. \emph{European Journal of Personality}, \emph{29}(4), 445--458. \url{https://doi.org/10.1002/per.1992}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Halali2018}{}}%
+Halali, E., Dorfman, A., Jun, S., \& Halevy, N. (2018). More for us or more for me? Social dominance as parochial egoism. \emph{Social Psychological and Personality Science}, \emph{9}(2), 254--262. \url{https://doi.org/10.1177/1948550617732819}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Hamaker2015}{}}%
+Hamaker, E. L., Kuiper, R. M., \& Grasman, R. P. P. P. (2015). A critique of the cross-lagged panel model. \emph{Psychological Methods}, \emph{20}(1), 102.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Hu1999}{}}%
+Hu, L. T., \& Bentler, P. M. (1999). Cutoff criteria for fit indexes in covariance structure analysis: Conventional criteria versus new alternatives. \emph{Structural Equation Modeling}, \emph{6}(1), 1--55. \url{https://doi.org/10.1080/10705519909540118}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-targets}{}}%
+Landau, W. M. (2021). The targets {R} package: A dynamic {M}ake-like function-oriented pipeline toolkit for reproducibility and high-performance computing. \emph{Journal of Open Source Software}, \emph{6}(57), 2959. Retrieved from \url{https://doi.org/10.21105/joss.02959}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Lonnqvist2015}{}}%
+Lönnqvist, J.-E., Verkasalo, M., Walkowitz, G., \& Wichardt, P. C. (2015). Measuring individual risk attitudes in the lab: Task or ask? An empirical comparison. \emph{Journal of Economic Behavior \& Organization}, \emph{119}, 254--266. https://doi.org/\url{https://doi.org/10.1016/j.jebo.2015.08.003}
+
+\leavevmode\vadjust pre{\hypertarget{ref-MacCallum1996}{}}%
+MacCallum, R. C., Browne, M. W., \& Sugawara, H. M. (1996). Power analysis and determination of sample size for covariance structure modeling. \emph{Psychological Methods}, \emph{1}(2), 130--149. \url{https://doi.org/10.1037/1082-989x.1.2.130}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Osborne2017}{}}%
+Osborne, D., Milojev, P., \& Sibley, C. G. (2017). Authoritarianism and national identity: Examining the longitudinal effects of SDO and RWA on nationalism and patriotism. \emph{Personality and Social Psychology Bulletin}, \emph{43}(8), 1086--1099. \url{https://doi.org/10.1177/0146167217704196}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Osborne2020}{}}%
+Osborne, D., \& Sibley, C. G. (2020). Does openness to experience predict changes in conservatism? A nine-wave longitudinal investigation into the personality roots to ideology. \emph{Journal of Research in Personality}, \emph{87}, 103979. \url{https://doi.org/10.1016/j.jrp.2020.103979}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Osborne2015}{}}%
+Osborne, D., \& Weiner, B. (2015). A latent profile analysis of attributions for poverty: Identifying response patterns underlying people's willingness to help the poor. \emph{Personality and Individual Differences}, \emph{85}, 149--154. https://doi.org/\url{https://doi.org/10.1016/j.paid.2015.05.007}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-ggraph}{}}%
+Pedersen, T. L. (2020). \emph{{ggraph}: An implementation of grammar of graphics for graphs and networks}. Retrieved from \url{https://CRAN.R-project.org/package=ggraph}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Petersen2019}{}}%
+Petersen, M. B., \& Laustsen, L. (2019). Upper-body strength and political egalitarianism: Twelve conceptual replications. \emph{Political Psychology}, \emph{40}(2), 375--394. https://doi.org/\url{https://doi.org/10.1111/pops.12505}
+
+\leavevmode\vadjust pre{\hypertarget{ref-PewResearchCenter2020}{}}%
+Pew Research Center. (2020). \emph{Voters rarely switch parties, but recent shifts further educational, racial divergence}. Retrieved from \url{https://www.pewresearch.org/politics/2020/08/04/voters-rarely-switch-parties-but-recent-shifts-further-educational-racial-divergence/}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Peysakhovich2014}{}}%
+Peysakhovich, A., Nowak, M. A., \& Rand, D. G. (2014). Humans display a {``cooperative phenotype''} that is domain general and temporally stable. \emph{Nature Communications}, \emph{5}, 4939. \url{https://doi.org/10.1038/ncomms5939}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Piff2020}{}}%
+Piff, P. K., Wiwad, D., Robinson, A. R., Aknin, L. B., Mercier, B., \& Shariff, A. (2020). Shifting attributions for poverty motivates opposition to inequality and enhances egalitarianism. \emph{Nature Human Behaviour}, \emph{4}(5), 496--505. \url{https://doi.org/10.1038/s41562-020-0835-8}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Pisor2020}{}}%
+Pisor, A. C., Gervais, M. M., Purzycki, B. G., \& Ross, C. T. (2020). Preferences and constraints: The value of economic games for studying human behaviour. \emph{Royal Society Open Science}, \emph{7}(6), 192090. \url{https://doi.org/10.1098/rsos.192090}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Pratto1994}{}}%
+Pratto, F., Sidanius, J., Stallworth, L. M., \& Malle, B. F. (1994). Social dominance orientation: A personality variable predicting social and political attitudes. \emph{Journal of Personality and Social Psychology}, \emph{67}(4), 741.
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-base}{}}%
+R Core Team. (2019). \emph{{R: A Language and Environment for Statistical Computing}}. Vienna, Austria: R Foundation for Statistical Computing. Retrieved from \url{https://www.R-project.org/}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Reigstad2017}{}}%
+Reigstad, A. G., Strømland, E. A., \& Tinghög, G. (2017). Extending the cooperative phenotype: Assessing the stability of cooperation across countries. \emph{Frontiers in Psychology}, \emph{8}, 1990. \url{https://doi.org/10.3389/fpsyg.2017.01990}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-lavaan}{}}%
+Rosseel, Y. (2012). {lavaan}: An {R} package for structural equation modeling. \emph{Journal of Statistical Software}, \emph{48}(2), 1--36. Retrieved from \url{http://www.jstatsoft.org/v48/i02/}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Satherley2020}{}}%
+Satherley, N., Sibley, C. G., \& Osborne, D. (2020). Ideology before party: Social dominance orientation and right-wing authoritarianism temporally precede political party support. \emph{British Journal of Social Psychology}. \url{https://doi.org/10.1111/bjso.12414}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Sibley2010a}{}}%
+Sibley, C. G., \& Duckitt, J. (2010). The ideological legitimation of the status quo: Longitudinal tests of a social dominance model. \emph{Political Psychology}, \emph{31}(1), 109--137. \url{https://doi.org/10.1111/j.1467-9221.2009.00747.x}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Sibley2013}{}}%
+Sibley, C. G., \& Duckitt, J. (2013). The dual process model of ideology and prejudice: A longitudinal test during a global recession. \emph{The Journal of Social Psychology}, \emph{153}(4), 448--466. \url{https://doi.org/10.1080/00224545.2012.757544}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Sibley2007}{}}%
+Sibley, C. G., Wilson, M. S., \& Duckitt, J. (2007). Effects of dangerous and competitive worldviews on right-wing authoritarianism and social dominance orientation over a five-month period. \emph{Political Psychology}, \emph{28}(3), 357--371. \url{https://doi.org/10.1111/j.1467-9221.2007.00572.x}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Sidanius2000}{}}%
+Sidanius, J., Levin, S., Liu, J., \& Pratto, F. (2000). Social dominance orientation, anti-egalitarianism and the political psychology of gender: An extension and cross-cultural replication. \emph{European Journal of Social Psychology}, \emph{30}(1), 41--67.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Sidanius1994}{}}%
+Sidanius, J., Pratto, F., \& Bobo, L. (1994). Social dominance orientation and the political psychology of gender: A case of invariance? \emph{Journal of Personality and Social Psychology}, \emph{67}(6), 998.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Sidanius1996}{}}%
+Sidanius, J., Pratto, F., \& Bobo, L. (1996). Racism, conservatism, affirmative action, and intellectual sophistication: A matter of principled conservatism or group dominance? \emph{Journal of Personality and Social Psychology}, \emph{70}(3), 476.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Thielmann2020}{}}%
+Thielmann, I., Spadaro, G., \& Balliet, D. (2020). Personality and prosocial behavior: A theoretical framework and meta-analysis. \emph{Psychological Bulletin}, \emph{146}(1), 30--90. \url{https://doi.org/10.1037/bul0000217}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Tomasello2012}{}}%
+Tomasello, M., Melis, A. P., Tennie, C., Wyman, E., \& Herrmann, E. (2012). Two key steps in the evolution of human cooperation: The interdependence hypothesis. \emph{Current Anthropology}, \emph{53}(6), 673--692. \url{https://doi.org/10.1086/668207}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-mice}{}}%
+van Buuren, S., \& Groothuis-Oudshoorn, K. (2011). {mice}: Multivariate imputation by chained equations in {R}. \emph{Journal of Statistical Software}, \emph{45}(3), 1--67. Retrieved from \url{https://www.jstatsoft.org/v45/i03/}
+
+\leavevmode\vadjust pre{\hypertarget{ref-vanDeSchoot2012}{}}%
+van de Schoot, R., Lugtig, P., \& Hox, J. (2012). A checklist for testing measurement invariance. \emph{European Journal of Developmental Psychology}, \emph{9}(4), 486--492. \url{https://doi.org/10.1080/17405629.2012.686740}
+
+\leavevmode\vadjust pre{\hypertarget{ref-VanLange2012}{}}%
+Van Lange, P. A. M., Bekkers, R., Chirumbolo, A., \& Leone, L. (2012). Are conservatives less likely to be prosocial than liberals? From games to ideology, political preferences and voting. \emph{European Journal of Personality}, \emph{26}(5), 461--473. \url{https://doi.org/10.1002/per.845}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Verhulst2012}{}}%
+Verhulst, B., Eaves, L. J., \& Hatemi, P. K. (2012). Correlation not causation: The relationship between personality traits and political ideologies. \emph{American Journal of Political Science}, \emph{56}(1), 34--51. \url{https://doi.org/10.1111/j.1540-5907.2011.00568.x}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-ggplot2}{}}%
+Wickham, H. (2016). \emph{{ggplot2: Elegant Graphics for Data Analysis}}. Springer-Verlag New York. Retrieved from \url{https://ggplot2.tidyverse.org}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-cowplot}{}}%
+Wilke, C. O. (2019). \emph{{cowplot: Streamlined Plot Theme and Plot Annotations for {``ggplot2''}}}. Retrieved from \url{https://CRAN.R-project.org/package=cowplot}
+
+\end{CSLReferences}
+
+\endgroup
+\newpage
+\vspace*{60mm}
+
+\renewcommand{\figurename}{Supplementary Figure}
+\renewcommand{\tablename}{Supplementary Table}
+\renewcommand{\thefigure}{\arabic{figure}} \setcounter{figure}{0}
+\renewcommand{\thetable}{\arabic{table}} \setcounter{table}{0}
+\renewcommand{\theequation}{\arabic{equation}} \setcounter{equation}{0}
+
+\hypertarget{supplementary-information}{%
+\section{\texorpdfstring{\textbf{Supplementary Information}}{Supplementary Information}}\label{supplementary-information}}
+
+\setcounter{page}{1}
+\centering
+
+\noindent \hspace*{1cm} \small Cooperative phenotype predicts political ideology eighteen months later \newline
+\hspace*{8mm} \small Scott Claessens\textsuperscript{1}, Chris G Sibley\textsuperscript{1}, Ananish Chaudhuri\textsuperscript{2,3}, \& Quentin D Atkinson\textsuperscript{1,4} \newline
+
+\raggedright
+
+\noindent \footnotesize \textsuperscript{1} School of Psychology, University of Auckland, New Zealand \newline
+\noindent \footnotesize \textsuperscript{2} Department of Economics, University of Auckland, Auckland, New Zealand \newline
+\noindent \footnotesize \textsuperscript{3} CESifo, Munich, Germany \newline
+\noindent \footnotesize \textsuperscript{4} Max Planck Institute for the Science of Human History, Jena, Germany \newline
+\normalsize
+\newpage
+
+\hypertarget{supplementary-figures}{%
+\subsection{Supplementary Figures}\label{supplementary-figures}}
+
+
+
+\begin{figure}
+\centering
+\includegraphics{manuscript_files/figure-latex/timelinePlot-1.pdf}
+\caption{\label{fig:timelinePlot}\emph{Data collection timeline for NZAVS Wave 10, NZAVS Wave 11, and both waves of economic game data collection (n = 631).} Each point is an individual participant. Note the break in data collection in February 2019 due to the Christchurch terrorist attack.}
+\end{figure}
+
+\newpage
+
+
+
+\begin{figure}
+\centering
+\includegraphics{manuscript_files/figure-latex/impPlot-1.pdf}
+\caption{\label{fig:impPlot}\emph{Density plots showing imputed values from 20 multiply imputed datasets (pink) against observed values (blue).} Data were imputed using predictive mean matching.}
+\end{figure}
+
+\newpage
+
+
+
+\begin{figure}
+\includegraphics[width=0.8\linewidth]{images/cfa1} \caption{\emph{Confirmatory factor model for the cooperative phenotype in Wave 2.} TG1 is treated as a binary endogenous variable, and the path for TG1 is constrained to 1. Numbers are unstandardised coefficients. *\emph{p} \textless{} 0.05. TG1 = Trust Game (Give), TG2 = Trust Game (Return), PGG = Public Goods Game, DG = Dictator Game.}\label{fig:cfa1Plot}
+\end{figure}
+
+\newpage
+
+
+
+\begin{figure}
+\includegraphics[width=0.8\linewidth]{manuscript_files/figure-latex/sem1Plot-1} \caption{\emph{Social Dominance Orientation (mean score) is negatively related to model-predicted cooperation latent variable scores.}}\label{fig:sem1Plot}
+\end{figure}
+
+\newpage
+
+
+
+\begin{figure}
+\centering
+\includegraphics{manuscript_files/figure-latex/clpmPlotIncRed-1.pdf}
+\caption{\label{fig:clpmPlotIncRed}\emph{The cooperative phenotype predicts later support for income redistribution.} (a) Cross-lagged panel model with the cooperative phenotype and support for income redistribution. Support for income redistribution is treated as ordinal. Note that measurement models for the cooperative phenotype latent variables are omitted from this figure. Numbers are standardised coefficients, *\emph{p} \textless{} 0.05. (b, c) Forest plots visualising the change in cross-lagged paths when controlling for time-invariant covariates, individually and in a full model. Points are unstandardised estimates, lines are 95\% confidence intervals.}
+\end{figure}
+
+\newpage
+
+
+
+\begin{figure}
+\centering
+\includegraphics{manuscript_files/figure-latex/clpmPlotIncAtt-1.pdf}
+\caption{\label{fig:clpmPlotIncAtt}\emph{The cooperative phenotype and income attribution beliefs do not predict one another over time.} (a) Cross-lagged panel model with the cooperative phenotype and income attribution beliefs. Income attribution beliefs are treated as ordinal. Note that measurement models for the cooperative phenotype latent variables are omitted from this figure. Numbers are standardised coefficients, *\emph{p} \textless{} 0.05. (b, c) Forest plots visualising the change in cross-lagged paths when controlling for time-invariant covariates, individually and in a full model. Points are unstandardised estimates, lines are 95\% confidence intervals.}
+\end{figure}
+
+\newpage
+
+
+
+\begin{figure}
+\centering
+\includegraphics{manuscript_files/figure-latex/clpmPlotPolNat-1.pdf}
+\caption{\label{fig:clpmPlotPolNat}\emph{The cooperative phenotype and support for the National Party do not predict one another over time.} (a) Cross-lagged panel model with the cooperative phenotype and support for the National Party. Support for the National Party is treated as ordinal. Note that measurement models for the cooperative phenotype latent variables are omitted from this figure. Numbers are standardised coefficients, *\emph{p} \textless{} 0.05. (b, c) Forest plots visualising the change in cross-lagged paths when controlling for time-invariant covariates, individually and in a full model. Points are unstandardised estimates, lines are 95\% confidence intervals.}
+\end{figure}
+
+\newpage
+
+\hypertarget{supplementary-tables}{%
+\subsection{Supplementary Tables}\label{supplementary-tables}}
+
+
+
+\begin{table}[h]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:itemTable}Self-report items from the New Zealand Attitudes and Values Study.}
+
+\footnotesize{
+
+\begin{tabular}{p{4.2cm}p{9cm}p{1cm}}
+\toprule
+Item & \multicolumn{1}{c}{Description / Text} & \multicolumn{1}{c}{Wave}\\
+\midrule
+SDO1 & It is OK if some groups have more of a chance in life than others & 10 - 11\\
+SDO2 & Inferior groups should stay in their place & 10 - 11\\
+SDO3 & To get ahead in life, it is sometimes okay to step on other groups & 10 - 11\\
+SDO4 (reversed) & We should have increased social equality & 10 - 11\\
+SDO5 (reversed) & It would be good if groups could be equal & 10 - 11\\
+SDO6 (reversed) & We should do what we can to equalise conditions for different groups & 10 - 11\\
+RWA1 & It is always better to trust the judgment of the proper authorities in government and religion than to listen to the noisy rabble-rousers in our society who are trying to create doubt in people's minds & 10\\
+RWA2 & It would be best for everyone if the proper authorities censored magazines so that people could not get their hands on trashy and disgusting material & 10\\
+RWA3 & Our country will be destroyed some day if we do not smash the perversions eating away at our moral fibre and traditional beliefs & 10\\
+RWA4 (reversed) & People should pay less attention to The Bible and other old traditional forms of religious guidance, and instead develop their own personal standards of what is moral and immoral & 10\\
+RWA5 (reversed) & Atheists and others who have rebelled against established religions are no doubt every bit as good and virtuous as those who attend church regularly & 10\\
+RWA6 (reversed) & Some of the best people in our country are those who are challenging our government, criticizing religion, and ignoring the 'normal way' things are supposed to be done & 10\\
+Income redistribution & Redistributing money and wealth more evenly among a larger percentage of the people in New Zealand through heavy taxes on the rich & 10 - 11\\
+Income attribution & If incomes were more equal, people would be less motivated to work hard & 10 - 11\\
+Support for National Party & Level of support for The National Party & 10 - 11\\
+Age & What is your date of birth? & 10\\
+Gender & What is your gender? (open-ended) & 10\\
+Ethnicity & Which ethnic group do you belong to? (NZ census question) & 10\\
+Education level & NZ Reg (0-10 education ordinal rank) & 10\\
+Socio-economic status & NZSEI13 (NZ Socio-economic index) & 10\\
+Local deprivation & Deprivation score 2013 (for Meshblock) & 10\\
+Religiosity & Do you identify with a religion and/or spiritual group? & 10\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
+
+
+\end{document}

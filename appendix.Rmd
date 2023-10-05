@@ -1,0 +1,91 @@
+\renewcommand{\figurename}{Supplementary Figure}
+\renewcommand{\tablename}{Supplementary Table}
+\renewcommand{\thefigure}{\arabic{figure}} \setcounter{figure}{0}
+\renewcommand{\thetable}{\arabic{table}} \setcounter{table}{0}
+\renewcommand{\theequation}{\arabic{equation}} \setcounter{equation}{0}
+
+# **Supplementary Information**
+
+\setcounter{page}{1}
+\centering
+\noindent \hspace*{1cm} \small Cooperative phenotype predicts political ideology eighteen months later \newline
+\hspace*{8mm} \small Scott Claessens\textsuperscript{1}, Chris G Sibley\textsuperscript{1}, Ananish Chaudhuri\textsuperscript{2,3}, & Quentin D Atkinson\textsuperscript{1,4} \newline
+\raggedright
+\noindent \footnotesize \textsuperscript{1} School of Psychology, University of Auckland, New Zealand \newline
+\noindent \footnotesize \textsuperscript{2} Department of Economics, University of Auckland, Auckland, New Zealand \newline
+\noindent \footnotesize \textsuperscript{3} CESifo, Munich, Germany \newline
+\noindent \footnotesize \textsuperscript{4} Max Planck Institute for the Science of Human History, Jena, Germany \newline
+\normalsize
+\newpage
+
+## Supplementary Figures
+
+(ref:timelinePlotCaption) _Data collection timeline for NZAVS Wave 10, NZAVS Wave 11, and both waves of economic game data collection (n = `r printnum(nrow(tar_read(d)))`)._ Each point is an individual participant. Note the break in data collection in February 2019 due to the Christchurch terrorist attack.
+
+```{r timelinePlot, echo=FALSE, warning=F, message=F, fig.width=7, fig.height=5, fig.cap="(ref:timelinePlotCaption)"}
+tar_read(timeline)
+```
+
+\newpage
+
+(ref:impPlotCaption) _Density plots showing imputed values from 20 multiply imputed datasets (pink) against observed values (blue)._ Data were imputed using predictive mean matching.
+
+```{r impPlot, echo=FALSE, warning=F, message=F, fig.width=16, fig.height=10, fig.cap="(ref:impPlotCaption)"}
+tar_read(plotImputation)
+```
+
+\newpage
+
+(ref:cfa1PlotCaption) _Confirmatory factor model for the cooperative phenotype in Wave 2._ TG1 is treated as a binary endogenous variable, and the path for TG1 is constrained to 1. Numbers are unstandardised coefficients. *_p_ < 0.05. TG1 = Trust Game (Give), TG2 = Trust Game (Return), PGG = Public Goods Game, DG = Dictator Game.
+
+```{r cfa1Plot, echo=FALSE, warning=F, message=F, out.width="80%", fig.cap="(ref:cfa1PlotCaption)"}
+knitr::include_graphics("images/cfa1.png")
+```
+
+\newpage
+
+(ref:sem1PlotCaption) _Social Dominance Orientation (mean score) is negatively related to model-predicted cooperation latent variable scores._
+
+```{r sem1Plot, echo=FALSE, warning=F, message=F, out.width="80%", fig.cap="(ref:sem1PlotCaption)"}
+tar_read(plotSem1)
+```
+
+\newpage
+
+(ref:clpmPlotIncRedCaption) _The cooperative phenotype predicts later support for income redistribution._ (a) Cross-lagged panel model with the cooperative phenotype and support for income redistribution. Support for income redistribution is treated as ordinal. Note that measurement models for the cooperative phenotype latent variables are omitted from this figure. Numbers are standardised coefficients, *_p_ < 0.05. (b, c) Forest plots visualising the change in cross-lagged paths when controlling for time-invariant covariates, individually and in a full model. Points are unstandardised estimates, lines are 95% confidence intervals. 
+
+```{r clpmPlotIncRed, echo=FALSE, warning=F, message=F, fig.width=6, fig.height=6, fig.cap="(ref:clpmPlotIncRedCaption)"}
+tar_read(clpmPlot_IncRed)
+```
+
+\newpage
+
+(ref:clpmPlotIncAttCaption) _The cooperative phenotype and income attribution beliefs do not predict one another over time._ (a) Cross-lagged panel model with the cooperative phenotype and income attribution beliefs. Income attribution beliefs are treated as ordinal. Note that measurement models for the cooperative phenotype latent variables are omitted from this figure. Numbers are standardised coefficients, *_p_ < 0.05. (b, c) Forest plots visualising the change in cross-lagged paths when controlling for time-invariant covariates, individually and in a full model. Points are unstandardised estimates, lines are 95% confidence intervals. 
+
+```{r clpmPlotIncAtt, echo=FALSE, warning=F, message=F, fig.width=6, fig.height=6, fig.cap="(ref:clpmPlotIncAttCaption)"}
+tar_read(clpmPlot_IncAtt)
+```
+
+\newpage
+
+(ref:clpmPlotPolNatCaption) _The cooperative phenotype and support for the National Party do not predict one another over time._ (a) Cross-lagged panel model with the cooperative phenotype and support for the National Party. Support for the National Party is treated as ordinal. Note that measurement models for the cooperative phenotype latent variables are omitted from this figure. Numbers are standardised coefficients, *_p_ < 0.05. (b, c) Forest plots visualising the change in cross-lagged paths when controlling for time-invariant covariates, individually and in a full model. Points are unstandardised estimates, lines are 95% confidence intervals.
+
+```{r clpmPlotPolNat, echo=FALSE, warning=F, message=F, fig.width=6, fig.height=6, fig.cap="(ref:clpmPlotPolNatCaption)"}
+tar_read(clpmPlot_PolNat)
+```
+
+\newpage
+
+## Supplementary Tables
+
+(ref:itemTableCaption) Self-report items from the New Zealand Attitudes and Values Study.
+
+```{r itemTable, echo=F, warning=F, message=F}
+apa_table(
+  tar_read(itemTable),
+  font_size = "footnotesize",
+  placement = "h",
+  align = c("p{4.2cm}", "p{9cm}", "p{1cm}"),
+  caption = "(ref:itemTableCaption)"
+)
+```
