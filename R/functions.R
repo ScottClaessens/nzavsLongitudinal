@@ -12,6 +12,10 @@ loadData <- function(fileData) {
                           "Gender.T10", "Age.T10", "NZDep.2013.T10", "EthnicCats.T10", "Religious.T10",
                           "NZREG.T10", "NZSEI13.T10",
                           
+                          # personality variables
+                          "T10.EXTRAVERSION", "T10.AGREEABLENESS", "T10.CONSCIENTIOUSNESS", 
+                          "T10.NEUROTICISM", "T10.OPENNESS", "T10.HONESTY_HUMILITY", "T10.NARCISSISM",
+                          
                           # economic games variables
                           "egame.Chk1.T10", "egame.Chk2.T10", "egame.TG1.T10", 
                           "egame.TG2.T10", "egame.PGG.T10", "egame.DG.T10", "egame.cmpTG.T10",
@@ -30,33 +34,35 @@ loadData <- function(fileData) {
     # remove labels
     zap_label() %>%
     zap_labels() %>%
-    # remove timeouts and no pay
-    filter(
-      egame.Chk1.T10 == 1 &
-        egame.Chk2.T10 == 1 &
-        egame.Chk1.T11 == 1 &
-        egame.Chk2.T11 == 1
-    ) %>%
+    # remove timeouts and no pay (wave 1 only)
+    filter(egame.Chk1.T10 == 1 & egame.Chk2.T10 == 1)
+}
+
+# filter data to participants who completed both waves
+filterData <- function(dFull) {
+  dFull %>%
+    # remove timeouts and no pay (wave 2)
+    filter(egame.Chk1.T11 == 1 & egame.Chk2.T11 == 1) %>%
     # "time on games"
-    select(-(egame.Secs49.T10:egame.Secs57.T10), -egame.SecsW.T10, -egame.SecsG.T10) %>%
-    select(-(egame.Secs49.T11:egame.Secs57.T11), -egame.SecsW.T11, -egame.SecsG.T11) %>%
-    mutate(egame.SecsAll.T10 = rowSums(select(., starts_with("egame.Secs") & ends_with(".T10")), na.rm = TRUE),
-           egame.SecsAll.T11 = rowSums(select(., starts_with("egame.Secs") & ends_with(".T11")), na.rm = TRUE)) %>%
+    dplyr::select(-(egame.Secs49.T10:egame.Secs57.T10), -egame.SecsW.T10, -egame.SecsG.T10) %>%
+    dplyr::select(-(egame.Secs49.T11:egame.Secs57.T11), -egame.SecsW.T11, -egame.SecsG.T11) %>%
+    mutate(egame.SecsAll.T10 = rowSums(dplyr::select(., starts_with("egame.Secs") & ends_with(".T10")), na.rm = TRUE),
+           egame.SecsAll.T11 = rowSums(dplyr::select(., starts_with("egame.Secs") & ends_with(".T11")), na.rm = TRUE)) %>%
     # standardise variables and set types
-    mutate(egame.TG2.T10                  = egame.TG2.T10 / 150,
-           egame.PGG.T10                  = egame.PGG.T10 / 100,
-           egame.DG.T10                   = egame.DG.T10  / 100,
-           egame.TG2.T11                  = egame.TG2.T11 / 150,
-           egame.PGG.T11                  = egame.PGG.T11 / 100,
-           egame.DG.T11                   = egame.DG.T11  / 100,
-           Age.T10.c                      = as.numeric(scale(Age.T10)),
-           NZDep.2013.T10                 = as.numeric(scale(NZDep.2013.T10)),
-           NZREG.T10                      = as.numeric(scale(NZREG.T10)),
-           NZSEI13.T10                    = as.numeric(scale(NZSEI13.T10)),
-           EthnicCats.T10                 = factor(ifelse(EthnicCats.T10 == 1, "Pakeha",
-                                                          ifelse(EthnicCats.T10 == 2, "Maori",
-                                                                 ifelse(EthnicCats.T10 == 3, "Pacific",
-                                                                        ifelse(EthnicCats.T10 == 4, "Asian", EthnicCats.T10)))))
+    mutate(egame.TG2.T10  = egame.TG2.T10 / 150,
+           egame.PGG.T10  = egame.PGG.T10 / 100,
+           egame.DG.T10   = egame.DG.T10  / 100,
+           egame.TG2.T11  = egame.TG2.T11 / 150,
+           egame.PGG.T11  = egame.PGG.T11 / 100,
+           egame.DG.T11   = egame.DG.T11  / 100,
+           Age.T10.c      = as.numeric(scale(Age.T10)),
+           NZDep.2013.T10 = as.numeric(scale(NZDep.2013.T10)),
+           NZREG.T10      = as.numeric(scale(NZREG.T10)),
+           NZSEI13.T10    = as.numeric(scale(NZSEI13.T10)),
+           EthnicCats.T10 = factor(ifelse(EthnicCats.T10 == 1, "Pakeha",
+                                          ifelse(EthnicCats.T10 == 2, "Maori",
+                                                 ifelse(EthnicCats.T10 == 3, "Pacific",
+                                                        ifelse(EthnicCats.T10 == 4, "Asian", EthnicCats.T10)))))
     )
 }
 
@@ -68,7 +74,14 @@ makeItemTable <- function() {
         "RWA1", "RWA2", "RWA3", "RWA4 (reversed)", "RWA5 (reversed)", "RWA6 (reversed)",
         "Income redistribution", "Income attribution", "Support for National Party", "Age", 
         "Gender", "Ethnicity", "Education level", "Socio-economic status", "Local deprivation",
-        "Religiosity"
+        "Religiosity", "Extraversion1", "Extraversion2 (reversed)", "Extraversion3 (reversed)", 
+        "Extraversion4", "Agreeableness1", "Agreeableness2 (reversed)", "Agreeableness3",
+        "Agreeableness4 (reversed)", "Conscientiousness1", "Conscientiousness2",
+        "Conscientiousness3 (reversed)", "Conscientiousness4 (reversed)", "Neuroticism1",
+        "Neuroticism2 (reversed)", "Neuroticism3", "Neuroticism4 (reversed)",
+        "Openness1", "Openness2 (reversed)", "Openness3 (reversed)", "Openness4 (reversed)",
+        "Narcissism1", "Narcissism2", "Honesty-Humility1 (reversed)",
+        "Honesty-Humility2 (reversed"
       ),
     `Description / Text` = 
       c("It is OK if some groups have more of a chance in life than others",
@@ -92,9 +105,33 @@ makeItemTable <- function() {
         "NZ Reg (0-10 education ordinal rank)",
         "NZSEI13 (NZ Socio-economic index)",
         "Deprivation score 2013 (for Meshblock)",
-        "Do you identify with a religion and/or spiritual group?"
+        "Do you identify with a religion and/or spiritual group?",
+        "Am the life of the party",
+        "Don't talk a lot",
+        "Keep in the background",
+        "Talk to a lot of different people at parties",
+        "Sympathize with others' feelings",
+        "Am not interested in other people's problems",
+        "Feel others' emotions",
+        "Am not really interested in others",
+        "Get chores done right away",
+        "Like order",
+        "Make a mess of things",
+        "Often forget to put things back in their proper place",
+        "Have frequent mood swings",
+        "Am relaxed most of the time",
+        "Get upset easily",
+        "Seldom feel blue",
+        "Have a vivid imagination",
+        "Have difficulty understanding abstract ideas",
+        "Do not have a good imagination",
+        "Am not interested in abstract ideas",
+        "Feel entitled to more of everything",
+        "Deserve more things in life",
+        "Would like to be seen driving around in a very expensive car",
+        "Would get a lot of pleasure from owning expensive lucury goods"
       ),
-    Wave = c(rep("10 - 11", 6), rep("10", 6), rep("10 - 11", 3), rep("10", 7))
+    Wave = c(rep("10 - 11", 6), rep("10", 6), rep("10 - 11", 3), rep("10", 31))
   )
 }
 
@@ -103,7 +140,7 @@ plotTimeline <- function(d) {
   # plot timeline
   out <-
     d %>%
-    select("Questionnaire.Num", contains("TSCORE")) %>%
+    dplyr::select("Questionnaire.Num", contains("TSCORE")) %>%
     rename(EconomicGames.T11 = egame.TSCORE.T11,
            EconomicGames.T10 = egame.TSCORE.T10,
            NZAVS.T11 = TSCORE.T11,
@@ -124,10 +161,12 @@ plotTimeline <- function(d) {
 imputeData <- function(d) {
   # remove some egame variables
   d <- dplyr::select(d, -starts_with("egame.Secs"), -starts_with("egame.Paid."), -Age.T10)
-  # remove QNum from predictor matrix
+  # remove QNum and personality variables from predictor matrix
   init  <- mice(d, maxit = 0)
   predM <- init$predictorMatrix
-  predM[, c("Questionnaire.Num")] <- 0
+  predM[,c("Questionnaire.Num","T10.AGREEABLENESS","T10.CONSCIENTIOUSNESS",
+           "T10.EXTRAVERSION","T10.HONESTY_HUMILITY","T10.NARCISSISM",
+           "T10.NEUROTICISM","T10.OPENNESS")] <- 0
   # impute the data
   out <- mice(d, m = 20, predictorMatrix = predM, seed = 1)
   # dummy ethnicity columns
@@ -140,12 +179,12 @@ imputeData <- function(d) {
 
 # plot imputation model fit
 plotImpModel <- function(dM) {
-  vars <- colnames(dM$data %>% select(-Questionnaire.Num, -starts_with("egame."), 
-                                      -contains("TSCORE"), -starts_with("EthnicCats")))
+  vars <- colnames(dM$data %>% dplyr::select(-Questionnaire.Num, -starts_with("egame."), 
+                                             -contains("TSCORE"), -starts_with("EthnicCats")))
   plots <- list()
   for (i in 1:length(vars)) plots[[i]] <- densityplot(dM, as.formula(paste("~", vars[i])))
-  out <- cowplot::plot_grid(plotlist = plots, ncol = 5, nrow = 3)
-  ggsave(out, file = "figures/imputationModel.pdf", height = 10, width = 16)
+  out <- cowplot::plot_grid(plotlist = plots, ncol = 6, nrow = 4)
+  ggsave(out, file = "figures/imputationModel.pdf", height = 13, width = 18)
   return(out)
 }
 
@@ -335,7 +374,7 @@ getComparisonTable <- function(configMI, metricMI, scalarMI, strictMI) {
 }
 
 # fit standard cross-lagged panel model for multiply imputed data
-fitCLPM <- function(dM, var1, var2, ordered, controls = "") {
+fitCLPM <- function(d, var1, var2, ordered, controls = "") {
   # model specification
   model <- 
     paste0(
@@ -385,8 +424,14 @@ fitCLPM <- function(dM, var1, var2, ordered, controls = "") {
         var1, ' ~~ ', controls
       )
   }
-  # fit model with multiply imputed data
-  out <- sem.mi(model, data = dM, ordered = ordered)
+  if (is.mids(d)) {
+    # fit model with multiply imputed data
+    out <- sem.mi(model, data = d, ordered = ordered)
+  } else {
+    # fit model with listwise-deleted data
+    d <- dummy_columns(d, "EthnicCats.T10")
+    out <- sem(model, data = d, ordered = ordered)
+  }
   return(out)
 }
 
@@ -433,12 +478,18 @@ fitCLPMSplit <- function(dM, var1, var2, ordered, group) {
 }
 
 # plot clpm model and parameters
-drawCLPMFigure <- function(modelList, var1, var2, semPlotVar, xmin, xmax) {
+drawCLPMFigure <- function(modelList, var1, var2, semPlotVar, 
+                           xmin, xmax, filename) {
   # fig A
   # get labelling function
   getLabel <- function(model, LHS, OP, RHS) {
-    s <- filter(tibble(summary(model, standardized = TRUE)), lhs == LHS & op == OP & rhs == RHS)
-    paste0(format(round(s$std.all, 2), nsmall = 2), ifelse(s$pvalue < 0.05, "*", ""))
+    if (class(model) == "lavaan.mi") {
+      s <- filter(tibble(summary(model, standardized = TRUE)), lhs == LHS & op == OP & rhs == RHS)
+      paste0(format(round(s$std.all, 2), nsmall = 2), ifelse(s$pvalue < 0.05, "*", ""))
+    } else {
+      s <- filter(standardizedSolution(model), lhs == LHS & op == OP & rhs == RHS)
+      paste0(format(round(s$est.std, 2), nsmall = 2), ifelse(s$pvalue < 0.05, "*", ""))
+    }
   }
   # create graph
   graph <-
@@ -481,14 +532,19 @@ drawCLPMFigure <- function(modelList, var1, var2, semPlotVar, xmin, xmax) {
   getEstimatePlot <- function(modelList, iv, dv, title) {
     # extracting function
     extractFromModel <- function(model, LHS, OP, RHS, extract) {
-      filter((summary(model)), lhs == LHS & op == OP & rhs == RHS)[,extract]
+      if (class(model) == "lavaan.mi") {
+        filter((summary(model)), lhs == LHS & op == OP & rhs == RHS)[,extract]
+      } else {
+        filter(parameterEstimates(model), lhs == LHS & op == OP & rhs == RHS)[,extract]
+      }
     }
     # extract estimates and CIs
-    est <- rep(NA, 10); for (i in 1:10) est[i] <- extractFromModel(modelList[[i]], dv, "~", iv, "est")
-    se  <- rep(NA, 10); for (i in 1:10) se[i]  <- extractFromModel(modelList[[i]], dv, "~", iv, "se")
-    models <- c("No controls", "Age", "Gender", "Ethnicity", 
-                "Education", "SES", "Deprivation",
-                "Religious", "RWA", "Full model")
+    est <- rep(NA, 17); for (i in 1:17) est[i] <- extractFromModel(modelList[[i]], dv, "~", iv, "est")
+    se  <- rep(NA, 17); for (i in 1:17) se[i]  <- extractFromModel(modelList[[i]], dv, "~", iv, "se")
+    models <- c("No controls", "Age", "Gender", "Ethnicity", "Education", "SES", 
+                "Deprivation", "Religious", "RWA", "Extraversion", "Agreeableness",
+                "Conscientiousness", "Neuroticism", "Openness", "Honesty-Humility",
+                "Narcissism", "Full model")
     # plot
     tibble(Model = factor(models, levels = models), Estimate = est, SE = se) %>%
       mutate(Upper = Estimate + 1.96*SE,
@@ -510,8 +566,7 @@ drawCLPMFigure <- function(modelList, var1, var2, semPlotVar, xmin, xmax) {
   bottom <- plot_grid(pB, pC, nrow = 1, labels = letters[2:3])
   out <- plot_grid(top, bottom, nrow = 2)
   # save
-  ggsave(out, filename = paste0("figures/clpmPlot_", semPlotVar, ".pdf"),
-         height = 6, width = 6)
+  ggsave(out, filename = filename, height = 6, width = 6)
   return(out)
 }
 
@@ -525,4 +580,126 @@ dMfactor <- function(dM, var) {
   }
   # output
   as.mids(dM)
+}
+
+# plot proportion of observed data
+plotPropObserved <- function(d) {
+  # plot
+  out <-
+    d %>%
+    dplyr::select(
+      Age.T10, Gender.T10, EthnicCats.T10, NZREG.T10, 
+      NZSEI13.T10, NZDep.2013.T10, Religious.T10, T10.RWA, 
+      T10.SDO, T11.SDO, Issue.IncomeRedistribution.T10, 
+      Issue.IncomeRedistribution.T11, IncomeAttribution.T10, 
+      IncomeAttribution.T11, Pol.SupNational.T10, Pol.SupNational.T11, 
+      egame.TG1.T10, egame.TG1.T11, egame.TG2.T10, egame.TG2.T11, 
+      egame.PGG.T10, egame.PGG.T11, egame.DG.T10, egame.DG.T11,
+      T10.EXTRAVERSION, T10.AGREEABLENESS, T10.CONSCIENTIOUSNESS, 
+      T10.NEUROTICISM, T10.OPENNESS, T10.HONESTY_HUMILITY, T10.NARCISSISM
+    ) %>%
+    mutate_all(function(x) !is.na(x)) %>%
+    pivot_longer(cols = everything()) %>%
+    group_by(name) %>%
+    summarise(prop = mean(value)) %>%
+    ggplot(aes(x = name, y = prop)) +
+    geom_col(fill = "skyblue") +
+    labs(x = NULL, y = "Proportion of data observed") +
+    scale_y_continuous(expand = c(0, 0)) +
+    theme_classic() +
+    theme(
+      axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1, size = 7)
+    )
+  # save plot
+  ggsave(out, filename = "figures/observed.pdf", width = 6, height = 4)
+  return(out)
+}
+
+# get table of models testing for selection bias
+getBiasTable <- function(dFull, variables) {
+  # model fitting function
+  fitBiasModel <- function(dFull, variable) {
+    dFull %>%
+      # did participant drop out?
+      mutate(
+        dropout = ifelse(egame.Chk1.T11 == 1 & egame.Chk2.T11 == 1, 0, 1),
+        dropout = ifelse(is.na(dropout), 1, dropout)
+      ) %>%
+      # fit model
+      lm(as.formula(paste0(variable, " ~ dropout")), data = .)
+  }
+  # create table
+  tibble(Variable = variables) %>%
+    mutate(
+      # fit models
+      model = map(Variable, function(x) fitBiasModel(dFull, variable = x)),
+      # extract coefficient, SE, t, and p
+      b  = map(model, function(x) summary(x)$coefficients[2,1]),
+      SE = map(model, function(x) summary(x)$coefficients[2,2]),
+      t  = map(model, function(x) summary(x)$coefficients[2,3]),
+      p  = map(model, function(x) summary(x)$coefficients[2,4])
+      ) %>%
+    unnest(c(b, SE, t, p)) %>%
+    dplyr::select(-model)
+}
+
+# get table of models testing for differences between waves
+getDiffTable <- function(d, games) {
+  # wrangle data
+  d <-
+    d %>%
+    dplyr::select(Questionnaire.Num, egame.TG1.T10, egame.TG1.T11,
+                  egame.TG2.T10, egame.TG2.T11, egame.DG.T10, egame.DG.T11,
+                  egame.PGG.T10, egame.PGG.T11) %>%
+    pivot_longer(
+      cols = !Questionnaire.Num,
+      names_pattern = "egame.(.*)\\.(.*)",
+      names_to = c(".value","Wave")
+    )
+  # model fitting function
+  fitDiffModel <- function(d, game) {
+    lmer(
+      as.formula(paste0(game, " ~ Wave + (1 | Questionnaire.Num)")),
+      data = d
+      )
+  }
+  # create table
+  tibble(Game = games) %>%
+    mutate(
+      # fit models
+      model = map(Game, function(x) fitDiffModel(d, game = x)),
+      # extract coefficient, SE, t, and p
+      b  = map(model, function(x) summary(x)$coefficients[2,1]),
+      SE = map(model, function(x) summary(x)$coefficients[2,2]),
+      t  = map(model, function(x) summary(x)$coefficients[2,4]),
+      p  = map(model, function(x) summary(x)$coefficients[2,5])
+    ) %>%
+    mutate(Game = c("Trust Game (Give)", "Trust Game (Return)",
+                    "Public Goods Game", "Dictator Game")) %>%
+    unnest(c(b, SE, t, p)) %>%
+    dplyr::select(-model)
+}
+
+# plot correlations between games at both waves
+plotCorrelations <- function(d) {
+  # extract games
+  games1 <- transmute(d, TG1 = egame.TG1.T10, TG2 = egame.TG2.T10, 
+                      DG = egame.DG.T10, PGG = egame.PGG.T10)
+  games2 <- transmute(d, TG1 = egame.TG1.T11, TG2 = egame.TG2.T11, 
+                      DG = egame.DG.T11, PGG = egame.PGG.T11)
+  # plots
+  p1 <- ggcorrplot(cor(games1), type = "lower", lab = TRUE, legend.title = NULL)
+  p2 <- ggcorrplot(cor(games2), type = "lower", lab = TRUE, legend.title = NULL)
+  # put together
+  out <-
+    plot_grid(
+      p1 + theme(legend.position = "none") + ggtitle("First wave"),
+      p2 + theme(legend.position = "none") + ggtitle("Second wave"),
+      get_legend(p1),
+      nrow = 1,
+      rel_widths = c(1, 1, 0.4)
+    )
+  # save
+  ggsave(out, filename = "figures/correlations.pdf", width = 7, height = 4)
+  return(out)
 }

@@ -2,8 +2,9 @@
 
 \footnotesize{
 
-\begin{longtable}{m{4.5cm}m{11cm}m{1.1cm}}\noalign{\getlongtablewidth\global\LTcapwidth=\longtablewidth}
-\caption{\label{tab:itemTable}Self-report items from the New Zealand Attitudes and Values Study.}\\
+\begin{longtable}{p{5cm}p{14cm}p{1cm}}\noalign{\getlongtablewidth\global\LTcapwidth=\longtablewidth}
+\caption{\label{tab:itemTable}Self-report items from the New Zealand Attitudes and
+Values Study.}\\
 \toprule
 Item & \multicolumn{1}{c}{Description / Text} & \multicolumn{1}{c}{Wave}\\
 \midrule
@@ -35,6 +36,30 @@ Education level & NZ Reg (0-10 education ordinal rank) & 10\\
 Socio-economic status & NZSEI13 (NZ Socio-economic index) & 10\\
 Local deprivation & Deprivation score 2013 (for Meshblock) & 10\\
 Religiosity & Do you identify with a religion and/or spiritual group? & 10\\
+Extraversion1 & Am the life of the party & 10\\
+Extraversion2 (reversed) & Don't talk a lot & 10\\
+Extraversion3 (reversed) & Keep in the background & 10\\
+Extraversion4 & Talk to a lot of different people at parties & 10\\
+Agreeableness1 & Sympathize with others' feelings & 10\\
+Agreeableness2 (reversed) & Am not interested in other people's problems & 10\\
+Agreeableness3 & Feel others' emotions & 10\\
+Agreeableness4 (reversed) & Am not really interested in others & 10\\
+Conscientiousness1 & Get chores done right away & 10\\
+Conscientiousness2 & Like order & 10\\
+Conscientiousness3 (reversed) & Make a mess of things & 10\\
+Conscientiousness4 (reversed) & Often forget to put things back in their proper place & 10\\
+Neuroticism1 & Have frequent mood swings & 10\\
+Neuroticism2 (reversed) & Am relaxed most of the time & 10\\
+Neuroticism3 & Get upset easily & 10\\
+Neuroticism4 (reversed) & Seldom feel blue & 10\\
+Openness1 & Have a vivid imagination & 10\\
+Openness2 (reversed) & Have difficulty understanding abstract ideas & 10\\
+Openness3 (reversed) & Do not have a good imagination & 10\\
+Openness4 (reversed) & Am not interested in abstract ideas & 10\\
+Narcissism1 & Feel entitled to more of everything & 10\\
+Narcissism2 & Deserve more things in life & 10\\
+Honesty-Humility1 (reversed) & Would like to be seen driving around in a very expensive car & 10\\
+Honesty-Humility2 (reversed & Would get a lot of pleasure from owning expensive lucury goods & 10\\
 \bottomrule
 \end{longtable}
 
