@@ -1,4 +1,4 @@
-# Cooperative phenotype predicts political views on hierarchy and redistribution eighteen months later
+# Prosocial phenotype predicts political views on hierarchy and redistribution eighteen months later
 
 ## Getting Started
 
